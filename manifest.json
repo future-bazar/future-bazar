@@ -1,7 +1,8 @@
 {
-  "name": "Future Bazar",
+  "id": "./",
+  "name": "Future Bazar | Online Shopping",
   "short_name": "Future Bazar",
-  "description": "আপনার প্রতিদিনের অনলাইন বাজার",
+  "description": "আপনার বিশ্বস্ত অনলাইন বাজার",
   "lang": "bn",
   "start_url": "./",
   "scope": "./",
@@ -11,14 +12,16 @@
   "theme_color": "#087c52",
   "icons": [
     {
-      "src": "./Icons/icon-192.png",
+      "src": "./icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "./icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
