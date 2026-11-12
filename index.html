@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087c52">
+<title>Future Bazar | Online Shopping</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7f6;
+  color: #202b26;
+}
+header {
+  background: #087c52;
+  color: white;
+  padding: 18px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+.logo span { color: #d9ff8b; }
+.cart {
+  background: white;
+  color: #087c52;
+  padding: 10px 17px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.hero {
+  background: linear-gradient(120deg,#087c52,#19a879);
+  color: white;
+  padding: 48px 6%;
+  text-align: center;
+}
+.hero h1 { font-size: 34px; margin-bottom: 12px; }
+.hero p { margin-bottom: 22px; }
+.search {
+  width: 90%;
+  max-width: 500px;
+  padding: 14px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.container {
+  padding: 25px 5%;
+}
+h2 { margin-bottom: 18px; }
+.categories {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 25px;
+}
+.categories button {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 11px 18px;
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.categories button.active {
+  background: #087c52;
+  color: white;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
+  gap: 15px;
+}
+.product {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 9px #0000000c;
+}
+.product .emoji {
+  font-size: 48px;
+  text-align: center;
+  padding: 15px;
+  background: #f0f8f3;
+  border-radius: 9px;
+  margin-bottom: 12px;
+}
+.product h3 { font-size: 16px; margin-bottom: 8px; }
+.price {
+  color: #087c52;
+  font-size: 19px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+.product button {
+  background: #087c52;
+  color: white;
+  border: 0;
+  width: 100%;
+  padding: 11px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+footer {
+  background: #123d30;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  margin-top: 35px;
+}
+.empty {
+  text-align: center;
+  padding: 25px;
+  grid-column: 1/-1;
+}
+@media(max-width:480px) {
+  .hero h1 { font-size: 26px; }
+  .container { padding: 20px 4%; }
+  .products { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">FUTURE <span>BAZAR</span></div>
+  <div class="cart">🛒 কার্ট: <span id="cartCount">0</span></div>
+</header>
+
+<section class="hero">
+  <h1>আপনার প্রতিদিনের বাজার</h1>
+  <p>বিশ্বস্ত কেনাকাটা, সহজেই আপনার হাতের মুঠোয়।</p>
+  <input class="search" id="search"
+    type="search" placeholder="পণ্যের নাম লিখে খুঁজুন...">
+</section>
+
+<main class="container">
+  <h2>পণ্যের ক্যাটাগরি</h2>
+  <div class="categories" id="categories">
+    <button class="active" data-category="সব">সব পণ্য</button>
+    <button data-category="মুদি">মুদি</button>
+    <button data-category="সবজি">সবজি</button>
+    <button data-category="ফল">ফল</button>
+    <button data-category="পরিচ্ছন্নতা">পরিচ্ছন্নতা</button>
+  </div>
+
+  <h2>জনপ্রিয় পণ্য</h2>
+  <div class="products" id="products"></div>
+</main>
+
+<footer>
+  <h3>FUTURE BAZAR</h3>
+  <p>আপনার বিশ্বস্ত অনলাইন বাজার</p>
+  <p>© 2026 Future Bazar. All Rights Reserved.</p>
+</footer>
+
+<script>
+const items = [
+  {id:1,name:"চাল",category:"মুদি",price:70,unit:"কেজি",icon:"🍚"},
+  {id:2,name:"আলু",category:"সবজি",price:30,unit:"কেজি",icon:"🥔"},
+  {id:3,name:"পেঁয়াজ",category:"সবজি",price:60,unit:"কেজি",icon:"🧅"},
+  {id:4,name:"সয়াবিন তেল",category:"মুদি",price:175,unit:"লিটার",icon:"🫗"},
+  {id:5,name:"ডিম",category:"মুদি",price:48,unit:"হালি",icon:"🥚"},
+  {id:6,name:"আপেল",category:"ফল",price:220,unit:"কেজি",icon:"🍎"},
+  {id:7,name:"কলা",category:"ফল",price:80,unit:"ডজন",icon:"🍌"},
+  {id:8,name:"শ্যাম্পু",category:"পরিচ্ছন্নতা",price:120,unit:"বোতল",icon:"🧴"}
+];
+
+let cart = [];
+let selectedCategory = "সব";
+
+function renderProducts() {
+  const search = document.getElementById("search").value.trim().toLowerCase();
+
+  const filtered = items.filter(item =>
+    (selectedCategory === "সব" || item.category === selectedCategory) &&
+    item.name.toLowerCase().includes(search)
+  );
+
+  const area = document.getElementById("products");
+
+  if (!filtered.length) {
+    area.innerHTML = '<p class="empty">কোনো পণ্য পাওয়া যায়নি।</p>';
+    return;
+  }
+
+  area.innerHTML = filtered.map(item => `
+    <div class="product">
+      <div class="emoji">${item.icon}</div>
+      <h3>${item.name}</h3>
+      <div class="price">৳${item.price} / ${item.unit}</div>
+      <button onclick="addToCart(${item.id})">
+        + কার্টে যোগ করুন
+      </button>
+    </div>
+  `).join("");
+}
+
+function addToCart(id) {
+  const found = cart.find(item => item.id === id);
+
+  if (found) found.qty++;
+  else cart.push({id,qty:1});
+
+  document.getElementById("cartCount").textContent =
+    cart.reduce((sum,item) => sum + item.qty,0);
+}
+
+document.getElementById("search")
+  .addEventListener("input",renderProducts);
+
+document.getElementById("categories")
+  .addEventListener("click",e => {
+    if (e.target.tagName !== "BUTTON") return;
+
+    selectedCategory = e.target.dataset.category;
+
+    document.querySelectorAll(".categories button")
+      .forEach(btn => btn.classList.remove("active"));
+
+    e.target.classList.add("active");
+    renderProducts();
+  });
+
+renderProducts();
+</script>
+
+</body>
+  </html>
